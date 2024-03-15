@@ -1,0 +1,12 @@
+version: '3'
+services:
+  cryptopals:
+    build: "./docker"
+    container_name: cryptopals
+    volumes:
+      - ./:/home:rw
+    stdin_open: true
+    tty: true
+    working_dir: /home
+    environment:
+      - PYTHONPATH=/home/cryptopals
