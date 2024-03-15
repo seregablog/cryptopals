@@ -11,16 +11,14 @@ class DiffieHellman:
         self.generateSecretkey()
         self.generatePublicKey()
 
-    def generateSecretkey(self)->None:
+    def generateSecretkey(self) -> None:
         self.secretKey = self.random.getInt(1, self.p - 1)
     
-    def generatePublicKey(self)->None:
+    def generatePublicKey(self) -> None:
         self.publicKey = pow(self.g, self.secretKey, self.p)
     
-    def generateSessionKey(self, publicKey: int)->int:
+    def generateSessionKey(self, publicKey: int) -> int:
         return pow(publicKey, self.secretKey, self.p)
-    
-
 
 
 if __name__ == "__main__":
@@ -29,4 +27,3 @@ if __name__ == "__main__":
     a = DiffieHellman(p, g)
     b = DiffieHellman(p, g)
     print('Session keys equals:', a.generateSessionKey(b.publicKey) == b.generateSessionKey(a.publicKey))
-        

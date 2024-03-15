@@ -1,7 +1,7 @@
-
 from Set4.Challenge28.S4CH28 import Sha1
 from Common.Random import Random
 from Common.IntConverter import IntConverter
+
 
 class Dsa:
     def __init__(self) -> None:
@@ -14,24 +14,22 @@ class Dsa:
         self.converter = IntConverter()
         self.generateKeys()
     
-    def generateKeys(self)->None:
+    def generateKeys(self) -> None:
         self.x = self.random.getInt(1, self.q - 1)
         self.y = pow(self.g, self.x, self.p)
     
-    def setParameters(self, p: int, g: int, q: int)->None:
+    def setParameters(self, p: int, g: int, q: int) -> None:
         self.p = p
         self.g = g
         self.q = q
         self.generateKeys()
     
-    def setY(self)->None:
+    def setY(self) -> None:
         self.y = y
 
-    
     def getPublicKey(self):
         return self.p, self.g, self.q, self.y
 
-    
     def sign(self, hash: bytearray):
         h = self.converter.bytesToInt(hash)
         k = self.random.getInt(1, self.q - 1)
@@ -39,15 +37,13 @@ class Dsa:
         s = (pow(k, -1, self.q) * (h + self.x * r)) % self.q
         return r, s
         
-    
-    def verify(self, hash: bytearray, r: int, s: int)->bool:
+    def verify(self, hash: bytearray, r: int, s: int) -> bool:
         h = self.converter.bytesToInt(hash)
         w = pow(s, -1, self.q)
         u1 = h * w % self.q
         u2 = r * w % self.q
         v = pow(self.g, u1, self.p) * pow(self.y, u2, self.p) % self.p % self.q
         return v == r
-
 
 
 if __name__ == "__main__":
@@ -58,7 +54,6 @@ if __name__ == "__main__":
     hash = sha1.hash(b'Hi world')
     r, s = dsa.sign(hash)
     print('Sign-Verify test: ', dsa.verify(hash, r, s))
-
 
     p, g, q, y = dsa.getPublicKey()
 
@@ -71,15 +66,7 @@ if __name__ == "__main__":
     for k in range(finish):
         x = (pow(r, -1, q) * (k * s - h)) % q
         if pow(g, x, p) == y:
-            print ('Find key', x)
-            print ('Key hash: ', sha1.hash(hex(x)[2:].encode()).hex())
-            print ('Public key correct: ', pow(g, x, p) == y)
+            print('Find key', x)
+            print('Key hash: ', sha1.hash(hex(x)[2:].encode()).hex())
+            print('Public key correct: ', pow(g, x, p) == y)
             break
-
-
-
-
-
-
-
-

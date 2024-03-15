@@ -15,4 +15,3 @@ if __name__ == "__main__":
     print('x:', x.hex())
     print('y:', y.hex())
     print('x xor y:', c.hex())
-    

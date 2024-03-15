@@ -2,6 +2,7 @@ from Set5.Challenge33.S5CH33 import DiffieHellman
 from Set2.Challenge10.S2CH10 import AesCbc
 from Set4.Challenge28.S4CH28 import Sha1
 
+
 class DiffieHellmanAes:
     def __init__(self, p: int, g: int) -> None:
         self.dh = DiffieHellman(p, g)
@@ -27,6 +28,3 @@ if __name__ == "__main__":
     sha1 = Sha1()
     key = sha1.hash((0).to_bytes(16, 'big'))[:16]
     print('Correct decrypt:', aes.decrypt(encrypted, key, iv) == data)
-
-
-

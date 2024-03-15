@@ -1,22 +1,21 @@
-
-
 from Set5.Challenge39.S5CH39 import Rsa
 from Common.IntConverter import IntConverter
 
 
 class PkcsRsaOracle:
-    def __init__(self, k: int)->None:
+    def __init__(self, k: int) -> None:
         self.k = k
         bits = (k // 2) * 8
         self.rsa = Rsa(bits)
         self.converter = IntConverter()
     
-    def isCorrect(self, number: int)->bool:
+    def isCorrect(self, number: int) -> bool:
         decrypt = self.rsa.decrypt(number)
         bytes = self.converter.intToBytes(decrypt, self.k)
         return bytes[0] == 0x00 and bytes[1] == 0x02
-    
-def pkcsPad(data: bytearray, k:int)->bytearray:
+
+
+def pkcsPad(data: bytearray, k: int) -> bytearray:
     d = len(data)
     pad = b'\xff' * (k - d - 3)
     return b'\x00\x02' + pad + b'\x00' + data
@@ -27,28 +26,27 @@ class Segment:
         self.a = a
         self.b = b
     
-
-    def length(self)->int:
+    def length(self) -> int:
         return self.b - self.a
     
-    def isPoint(self)->bool:
+    def isPoint(self) -> bool:
         return self.length() == 0
     
-    def __str__(self)->str:
+    def __str__(self) -> str:
         return '[' + str(self.a) + ',' + str(self.b) + ']'
     
-    def __eq__(self, __o: object)->bool:
+    def __eq__(self, __o: object) -> bool:
         return self.a == __o.a and self.b == __o.b
     
-    def __hash__(self)->int:
+    def __hash__(self) -> int:
         return hash(str(self.a) + str(self.b))
 
 
-def ceil(x, y)->int:
+def ceil(x, y) -> int:
     return x // y + int(x % y != 0)
 
 
-def findS(start: int, oracle: PkcsRsaOracle, c: int, e: int, n: int)->int:
+def findS(start: int, oracle: PkcsRsaOracle, c: int, e: int, n: int) -> int:
     s = start
     while True:
         cn = c * pow(s, e, n)
@@ -60,7 +58,8 @@ def findS(start: int, oracle: PkcsRsaOracle, c: int, e: int, n: int)->int:
     print('s=', s)
     return s
 
-def unionOneSegment(segment: Segment, s: int, n: int, B: int)->set:
+
+def unionOneSegment(segment: Segment, s: int, n: int, B: int) -> set:
     a = segment.a
     b = segment.b
 
@@ -79,7 +78,8 @@ def unionOneSegment(segment: Segment, s: int, n: int, B: int)->set:
     
     return newSegments
 
-def union(M: set, s: int, n: int, B: int)->set:
+
+def union(M: set, s: int, n: int, B: int) -> set:
     newM = set()
     for segment in M:
         newM = newM.union(unionOneSegment(segment, s, n, B))
@@ -87,13 +87,13 @@ def union(M: set, s: int, n: int, B: int)->set:
     return newM
 
 
-def printSegments(M: set)->None:
+def printSegments(M: set) -> None:
     for segment in M:
         print(segment, segment.length(),)
     print()
 
 
-def findSForOneSegment(a: int, b: int, sPrev: int, B: int, c: int, e: int, n: int)->int:
+def findSForOneSegment(a: int, b: int, sPrev: int, B: int, c: int, e: int, n: int) -> int:
     r = 2 * (b * sPrev - B) // n
 
     print('r=', r)
@@ -107,8 +107,6 @@ def findSForOneSegment(a: int, b: int, sPrev: int, B: int, c: int, e: int, n: in
         r += 1
 
 
-
-
 if __name__ == "__main__":
     k = 96
     B = 2 ** (8 * (k - 2))
@@ -116,7 +114,6 @@ if __name__ == "__main__":
     converter = IntConverter()
     e, n = oracle.rsa.getPublicKey()
     
-
     data = b"H"
     padData = pkcsPad(data, k)
     number = converter.bytesToInt(padData)
@@ -131,7 +128,6 @@ if __name__ == "__main__":
     M = union(M, s, n, B)
     print('S1 finded')
 
-
     while True:
         printSegments(M)
         if (len(M) >= 2):
@@ -144,25 +140,10 @@ if __name__ == "__main__":
             segment = M.pop()
             M.add(segment)
             if segment.isPoint():
-                print ('finish search')
+                print('finish search')
                 break
             s = findSForOneSegment(segment.a, segment.b, s, B, c, e, n)
             M = union(M, s, n, B)
             continue
     
     print('Find number correct:', M.pop().a == number)
-    
-    
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,6 +1,6 @@
 
 class Sha1:
-    def hash(self, data: bytearray)->bytearray:
+    def hash(self, data: bytearray) -> bytearray:
         paddedData = self.pad(data)
         h0 = 0x67452301
         h1 = 0xEFCDAB89
@@ -12,7 +12,7 @@ class Sha1:
 
         return self.processData(state, paddedData)
     
-    def processData(self, state: list, paddedData: bytearray)->bytearray:
+    def processData(self, state: list, paddedData: bytearray) -> bytearray:
         for i in range(0, len(paddedData), 64):
             state = self.__processBlock(state, paddedData[i: i + 64])
         
@@ -22,8 +22,7 @@ class Sha1:
         
         return hash
 
-
-    def __processBlock(self, state: list, block: bytearray)->list:
+    def __processBlock(self, state: list, block: bytearray) -> list:
         w = [0] * 80
         for i in range(0, 16):
             w[i] = int.from_bytes(block[4 * i: 4 * i + 4], 'big')
@@ -31,7 +30,6 @@ class Sha1:
         for i in range(16, 80):
             w[i] = self.__leftrotate(w[i - 3] ^ w[i - 8] ^ w[i - 14] ^ w[i - 16], 1)
         
-
         a = state[0]
         b = state[1]
         c = state[2]
@@ -72,15 +70,15 @@ class Sha1:
 
         return state
         
-    def __leftrotate(self, x:int, n:int)->int:
+    def __leftrotate(self, x: int, n: int) -> int:
         mask = 0xffffffff
         return ((x << n) | (x >> 32 - n)) & mask
     
-    def __add32(self, x:int, y:int)->int:
+    def __add32(self, x: int, y: int) -> int:
         mask = 0xffffffff
         return (x + y) & mask
 
-    def pad(self, data: bytearray):
+    def pad(self, data: bytearray) -> bytearray:
         length = len(data) * 8
         paddedData = bytearray(data)
         paddedData.append(0x80)
@@ -93,11 +91,8 @@ class Sha1:
         return paddedData
 
 
-        
-
-
 class Sha1PrefixMac():
-    def mac(self, message: bytearray, key: bytearray)->bytearray:
+    def mac(self, message: bytearray, key: bytearray) -> bytearray:
         return Sha1().hash(key + message)
 
 
@@ -106,8 +101,8 @@ if __name__ == "__main__":
 
     print('The quick brown fox...:', sha1.hash(bytearray('The quick brown fox jumps over the lazy dog', 'ascii')).hex())
 
-    mac  = Sha1PrefixMac()
+    mac = Sha1PrefixMac()
     key = b"YELLOW SUBMARINE"
 
     print('SOME MESSAGE:', mac.mac(key, b"SOME MESSAGE").hex())
-    print('ANOTHER MESSAGE:',mac.mac(key, b"ANOTHER MESSAGE").hex())
+    print('ANOTHER MESSAGE:', mac.mac(key, b"ANOTHER MESSAGE").hex())

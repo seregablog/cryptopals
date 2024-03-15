@@ -11,12 +11,12 @@ class CbcAsciiOracle:
         self.aes = AesCbc()
         self.padding = Pkcs7()
     
-    def encrypt(self, url: str)->bytearray:
+    def encrypt(self, url: str) -> bytearray:
         data = bytearray(url, 'ascii')
         return self.aes.encrypt(self.padding.pad(data, 16), self.key, self.iv)
     
-    def decrypt(self, data: bytearray)->bytearray:
-        dec  = self.padding.unpad(self.aes.decrypt(data, self.key, self.iv))
+    def decrypt(self, data: bytearray) -> bytearray:
+        dec = self.padding.unpad(self.aes.decrypt(data, self.key, self.iv))
         if not all(c < 128 for c in dec):
             raise Exception(dec)
         return dec
@@ -36,4 +36,3 @@ if __name__ == "__main__":
     except Exception as e:
         dec = e.args[0]
         print('Key', xorBytes(dec[:16], dec[32:48]))
-

@@ -1,6 +1,4 @@
 import time
-
-
 from Set1.Challenge2.S1CH2 import xorBytes
 from Set4.Challenge28.S4CH28 import Sha1
 
@@ -10,16 +8,15 @@ class HmacSha1:
         self.sha1 = Sha1()
         self.b = 64
         self.L = 20
-        self.ipad = bytearray.fromhex('36'  * self.b)
+        self.ipad = bytearray.fromhex('36' * self.b)
         self.opad = bytearray.fromhex('5c' * self.b)
     
-    def hmac(self, data: bytearray, key: bytearray)->bytearray:
+    def hmac(self, data: bytearray, key: bytearray) -> bytearray:
         k0 = self.__alignKey(key)
 
         return self.sha1.hash(xorBytes(k0, self.opad) + self.sha1.hash(xorBytes(k0, self.ipad) + data))
 
-    
-    def __alignKey(self, key: bytearray)->bytearray:
+    def __alignKey(self, key: bytearray) -> bytearray:
         if len(key) > self.b:
             return self.sha1.hash(key) + bytearray.fromhex('00' * (self.b - self.L))
         elif len(key) < self.b:
@@ -33,19 +30,16 @@ class HmacTimeOracle:
         self.hmac = HmacSha1()
         self.key = b"YELLOW SUBMARINE"
 
-    def verify(self, data: bytearray, signature: bytearray)->bool:
+    def verify(self, data: bytearray, signature: bytearray) -> bool:
         return self.__insecureEquals(self.hmac.hmac(data, self.key), signature)
         
-    def __insecureEquals(self, x: bytearray, y: bytearray)->bool:
+    def __insecureEquals(self, x: bytearray, y: bytearray) -> bool:
         for i in range(20):
             if x[i] != y[i]:
                 return False
             time.sleep(0.00005)
         return True
 
-
-
-        
 
 if __name__ == "__main__":
     hmac = HmacSha1()
@@ -69,6 +63,3 @@ if __name__ == "__main__":
         print('Signature:', i, signature.hex())
     
     print('Signature verify:', oracle.verify(text, signature))
-
-
-    

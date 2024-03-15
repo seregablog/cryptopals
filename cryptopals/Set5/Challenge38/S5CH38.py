@@ -1,10 +1,7 @@
-
 import hashlib
-
 from Common.IntConverter import IntConverter
-
-
 from Common.Random import Random
+
 
 class SimplySreClient:
     def __init__(self, n: int, g: int) -> None:
@@ -17,13 +14,13 @@ class SimplySreClient:
         self.pubA = None
         self.password = None
     
-    def inizialize(self, password: bytearray)->int:
+    def inizialize(self, password: bytearray) -> int:
         self.password = password
         self.a = self.random.getInt(1, self.n - 1)
         self.pubA = pow(self.g, self.a, self.n)
         return self.pubA
     
-    def generateKey(self, pubB: int, salt: int, u: int)->None:
+    def generateKey(self, pubB: int, salt: int, u: int) -> None:
         x = self.converter.bytesToInt(self.hash.sha256(self.converter.intToBytes(salt) + self.password).digest())
         s = pow(pubB, self.a + u * x, self.n)
         self.key = self.hash.sha256(self.converter.intToBytes(s)).digest()
@@ -39,7 +36,7 @@ if __name__ == "__main__":
        16:2b:7b:62:18:e8:f1:42:bc:e2:c3:0d:77:84:68:
        9a:48:3e:09:5e:70:16:18:43:79:13:a8:c3:9c:3d:"""
      
-    N = int("".join(N.split()).replace(":", ""), 16)  
+    N = int("".join(N.split()).replace(":", ""), 16)
     g = 2
     converter = IntConverter()
 

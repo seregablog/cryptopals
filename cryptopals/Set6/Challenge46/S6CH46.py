@@ -1,17 +1,16 @@
 import base64
-from decimal import *
-
+from decimal import Decimal, getcontext
 from Set5.Challenge39.S5CH39 import Rsa
 from Common.IntConverter import IntConverter
+
 
 class RsaParityOracle:
     def __init__(self) -> None:
         self.rsa = Rsa(512)
     
-    def isEven(self, number: int)->bool:
+    def isEven(self, number: int) -> bool:
         decrypted = self.rsa.decrypt(number)
         return decrypted % 2 == 0
-
 
 
 if __name__ == "__main__":
@@ -29,7 +28,7 @@ if __name__ == "__main__":
     c = encrypted
     getcontext().prec = 1024
 
-    while(finish - start > 1):
+    while (finish - start > 1):
         c = c * pow(2, e, n)
         
         if oracle.isEven(c):

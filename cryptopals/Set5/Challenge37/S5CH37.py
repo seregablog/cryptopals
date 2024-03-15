@@ -1,8 +1,4 @@
-
 import hashlib
-
-
-
 from Set5.Challenge36.S5CH36 import SreServer
 from Common.IntConverter import IntConverter
 
@@ -16,7 +12,7 @@ if __name__ == "__main__":
        16:2b:7b:62:18:e8:f1:42:bc:e2:c3:0d:77:84:68:
        9a:48:3e:09:5e:70:16:18:43:79:13:a8:c3:9c:3d:"""
      
-    N = int("".join(N.split()).replace(":", ""), 16)  
+    N = int("".join(N.split()).replace(":", ""), 16)
     g = 2
     k = 3
 
@@ -27,7 +23,6 @@ if __name__ == "__main__":
 
     salt, pubB = server.generateKey(0)
     key = hashlib.sha256(IntConverter().intToBytes(0)).digest()
-
 
     print('Server key:', server.key.hex())
     print('Zero key:', key.hex())

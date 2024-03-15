@@ -3,14 +3,13 @@ import math
 
 
 class Rsa:
-    def __init__(self, bitsInPrime=64)->None:
+    def __init__(self, bitsInPrime=64) -> None:
         self.e = 3
         self.n = None
         self.d = None
         self.generateKeys(bitsInPrime)
         
-    
-    def generateKeys(self, bits: int)->None:
+    def generateKeys(self, bits: int) -> None:
         
         while True:
             p = number.getPrime(bits)
@@ -26,18 +25,15 @@ class Rsa:
     def getPublicKey(self):
         return self.e, self.n
     
-    def encrypt(self, number: int)->int:
+    def encrypt(self, number: int) -> int:
         return pow(number, self.e, self.n)
     
-    def decrypt(self, encrypted: int)->int:
+    def decrypt(self, encrypted: int) -> int:
         return pow(encrypted, self.d, self.n)
 
 
-
-
-
 if __name__ == "__main__":
-    rsa  = Rsa()
+    rsa = Rsa()
     num = 42
     encrypted = rsa.encrypt(num)
     decrypted = rsa.decrypt(encrypted)
