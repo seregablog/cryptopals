@@ -1,4 +1,4 @@
-def xorBytes(x: bytearray, y: bytearray)->bytearray:
+def xorBytes(x: bytearray, y: bytearray) -> bytearray:
     c = bytearray()
     if (len(x) != len(y)):
         raise Exception('Different length: ' + str(len(x)) + ' ' + str(len(y)))
@@ -15,3 +15,4 @@ if __name__ == "__main__":
     print('x:', x.hex())
     print('y:', y.hex())
     print('x xor y:', c.hex())
+    

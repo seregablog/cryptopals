@@ -5,9 +5,8 @@ from Set1.Challenge2.S1CH2 import xorBytes
 from Common.FileReader import FileReader
 
 
-
 class AesCbc():
-    def encrypt(self, data: bytearray, key: bytearray, iv: bytearray)->bytearray:
+    def encrypt(self, data: bytearray, key: bytearray, iv: bytearray) -> bytearray:
         aes = AesEcb()
         encrypted = bytearray()
         blockSize = 16
@@ -19,7 +18,7 @@ class AesCbc():
             previous = encryptedBlock
         return encrypted
     
-    def decrypt(self, encrypted: bytearray, key: bytearray, iv: bytearray)->bytearray:
+    def decrypt(self, encrypted: bytearray, key: bytearray, iv: bytearray) -> bytearray:
         aes = AesEcb()
         decrypted = bytearray()
         blockSize = 16
@@ -39,6 +38,3 @@ if __name__ == "__main__":
     iv = bytearray(b'\x00') * 16
     print('Decryped:')
     print(a.decrypt(data, key, iv).decode('ascii'))
-
-
-

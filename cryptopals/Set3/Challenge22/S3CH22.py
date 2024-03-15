@@ -1,7 +1,5 @@
 import time
 import random
-
-
 from Set3.Challenge21.S3CH21 import MersenneTwister
 
 
@@ -11,8 +9,9 @@ class MtTimeOracle:
         seed = int(time.time()) + random.randint(40, 1000)
         self.rng.seed(seed)
 
-    def getRandom(self)->int:
+    def getRandom(self) -> int:
         return self.rng.getRandomNumber()
+
 
 if __name__ == "__main__":
     oracle = MtTimeOracle()
@@ -22,13 +21,8 @@ if __name__ == "__main__":
         rng = MersenneTwister()
         rng.seed(timestamp)
         number = rng.getRandomNumber()
-        if  number == output:
+        if number == output:
             print('Seed=', timestamp)
-            print('Numbers predict correct:',number == output)
+            print('Numbers predict correct:', number == output)
             break
         timestamp -= 1
-
-
-        
-
-

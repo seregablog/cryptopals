@@ -3,6 +3,7 @@ import sys
 from Set1.Challenge3.S1CH3 import OneByteXorDecryptor
 from Common.FileReader import FileReader
 
+
 if __name__ == "__main__":
     d = OneByteXorDecryptor()
     f = FileReader()
@@ -19,4 +20,3 @@ if __name__ == "__main__":
     print('Encrypted:', hexLine)
     print('Key:', hex(key))
     print('Decrypted:', decrypted.decode('ascii'))
-    

@@ -1,13 +1,13 @@
 
 class Pkcs7():
-    def pad(self, data: bytearray, bytesLength: int)->bytearray:
+    def pad(self, data: bytearray, bytesLength: int) -> bytearray:
         bytesToAdd = bytesLength - (len(data) % bytesLength)
         for i in range(bytesToAdd):
             data.append(bytesToAdd)
         
         return data
     
-    def unpad(self, data: bytearray)->bytearray:
+    def unpad(self, data: bytearray) -> bytearray:
         lastByte = data[-1]
         length = int(lastByte)
         if (length < 1 or length > 16):
@@ -18,8 +18,6 @@ class Pkcs7():
         
         unpadded = data[:-length]
         return unpadded
-
-
 
 
 if __name__ == "__main__":

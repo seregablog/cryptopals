@@ -1,6 +1,6 @@
 import sys
-
 from Common.FileReader import FileReader
+
 
 class MersenneTwister:
     def __init__(self) -> None:
@@ -18,20 +18,18 @@ class MersenneTwister:
         self.l = 18
         self.f = 1812433253
 
-
         self.mt = [None for i in range(self.n)]
         
-    def seed(self, seed: int)->None:
+    def seed(self, seed: int) -> None:
         self.mt[0] = seed
         self.index = self.n
         for i in range(1, self.n):
             self.mt[i] = self.__lowestWBits(self.f * (self.mt[i - 1] ^ (self.mt[i - 1] >> (self.w - 2))) + i)
 
-    def seedByState(self, mt: list)->None:
+    def seedByState(self, mt: list) -> None:
         self.index = 0
         self.mt = mt.copy()
 
-    
     def getRandomNumber(self) -> int:
         if self.index > self.n:
             raise Exception('index more than mt')
@@ -39,7 +37,6 @@ class MersenneTwister:
         if self.index == self.n:
             self.__twist()
 
- 
         y = self.mt[self.index]
         y = y ^ ((y >> self.u) & self.d)
         y = y ^ ((y << self.s) & self.b)
@@ -49,8 +46,7 @@ class MersenneTwister:
         self.index = self.index + 1
         return self.__lowestWBits(y)
 
-    
-    def __twist(self)->None:
+    def __twist(self) -> None:
         lowerMask = (1 << self.r) - 1
         upperMask = self.__lowestWBits(~lowerMask)
         for i in range(self.n):
@@ -61,7 +57,7 @@ class MersenneTwister:
             self.mt[i] = self.mt[(i + self.m) % self.n] ^ xA
         self.index = 0
 
-    def __lowestWBits(self, x)->int:
+    def __lowestWBits(self, x) -> int:
         mask = (1 << self.w) - 1
         return x & mask
 
@@ -77,4 +73,3 @@ if __name__ == "__main__":
             print('RNG is not correct:' + str(number) + ' ' + str(randomNumber))
             exit()
     print('RNG is correct')
-    

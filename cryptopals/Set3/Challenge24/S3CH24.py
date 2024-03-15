@@ -1,6 +1,5 @@
 
 import random
-
 from Set3.Challenge21.S3CH21 import MersenneTwister
 from Common.Random import Random
 
@@ -30,8 +29,8 @@ class MersenneCtr:
             c.append(x[i] ^ y[i])
         return c
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     key = random.randint(0, 0xffff)
     ctr = MersenneCtr()
     part = bytearray('A' * 14, 'ascii')
@@ -45,6 +44,3 @@ if __name__ == "__main__":
             print('Key:', key)
             print('Decrypted:', decrypted)
             break
-
-
-

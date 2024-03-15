@@ -7,7 +7,6 @@ from Set1.Challenge8.S1CH8 import detectEcb
 from Common.Random import Random
 
 
-
 class EcbOrCbcOracle():
     def __init__(self) -> None:
         self.random = Random()
@@ -28,13 +27,12 @@ class EcbOrCbcOracle():
             encrypted = self.cbc.encrypt(data, key, iv)
         return encrypted, mode
 
-
-    
     def __addToData(self, data: bytearray):
         startBytes = self.random.getBytes(self.random.getInt(5, 10))
         finishBytes = self.random.getBytes(self.random.getInt(5, 10))
         return startBytes + data + finishBytes
-    
+
+
 def detectMode(data: bytearray):
     if (detectEcb(data)):
         return 'ecb'
@@ -44,7 +42,7 @@ def detectMode(data: bytearray):
 
 if __name__ == "__main__":
     count = 100
-    data = b"a" * 48 # 4 full block
+    data = b"a" * 48  # 4 full block
     oracle = EcbOrCbcOracle()
     wrong = 0
     for i in range(count):
@@ -56,4 +54,3 @@ if __name__ == "__main__":
         print('wrong answers: ', wrong)
     else:
         print('correct')
-        

@@ -8,22 +8,21 @@ from Common.FileReader import FileReader
 
 class RepeatedXorDecryptor:
 
-    def detectKeyLength(self, text: bytearray)->int:
+    def detectKeyLength(self, text: bytearray) -> int:
         min = 1000
         length = None
-        for keyLength in range (2, 41):
+        for keyLength in range(2, 41):
             part1 = text[:keyLength]
             part2 = text[keyLength:2 * keyLength]
             part3 = text[2 * keyLength:3 * keyLength]
             part4 = text[3 * keyLength:4 * keyLength]
-            h = (self.__hammingDistance(part1, part2) + self.__hammingDistance(part1, part3) + self.__hammingDistance(part1, part4) + self.__hammingDistance(part2, part3) + self.__hammingDistance(part2, part4) + + self.__hammingDistance(part3, part4)) / 6 / keyLength 
+            h = (self.__hammingDistance(part1, part2) + self.__hammingDistance(part1, part3) + self.__hammingDistance(part1, part4) + self.__hammingDistance(part2, part3) + self.__hammingDistance(part2, part4) + + self.__hammingDistance(part3, part4)) / 6 / keyLength
             if (h < min):
                 min = h
                 length = keyLength
         return length
 
-
-    def findKey(self, text: bytearray, keyLength: int)->bytearray:
+    def findKey(self, text: bytearray, keyLength: int) -> bytearray:
         transposed = self.__transpose(text, keyLength)
         d = OneByteXorDecryptor()
         key = bytearray()
@@ -32,15 +31,15 @@ class RepeatedXorDecryptor:
             key.append(k)
         return key
     
-    def __transpose(self, text: bytearray, length: int)->list:
+    def __transpose(self, text: bytearray, length: int) -> list:
         lines = [bytearray() for i in range(length)]
         counter = 0
         for t in text:
             lines[counter].append(t)
-            counter  = (counter + 1) % length
+            counter = (counter + 1) % length
         return lines
 
-    def __bytebyteBitsDiff(self, x: int, y: int)->int:
+    def __bytebyteBitsDiff(self, x: int, y: int) -> int:
         c = x ^ y
         bits = 0
         while c > 0:
@@ -48,7 +47,7 @@ class RepeatedXorDecryptor:
             c = c // 2
         return bits
 
-    def __hammingDistance(self, x: bytearray, y: bytearray)->int:
+    def __hammingDistance(self, x: bytearray, y: bytearray) -> int:
         if len(x) != len(y):
             raise Exception('Hamming distance strings not equals length')
         dist = 0
@@ -57,26 +56,15 @@ class RepeatedXorDecryptor:
         return dist
 
 
-
-
 if __name__ == "__main__":
     f = FileReader()
     data = f.readBase64Line(sys.argv[0], 'input.txt')
     decryptor = RepeatedXorDecryptor()
     keyLength = decryptor.detectKeyLength(data)
-    print ('Key length:', keyLength)
+    print('Key length:', keyLength)
     key = decryptor.findKey(data, keyLength)
 
     print('Key:', key.hex())
-    print ("Decrypted:")
+    print("Decrypted:")
     decrypted = xorEncrypt(data, key)
-    print (decrypted.decode("ascii"))
-
-
-    # next manual part
-
-
-
-
-
-
+    print(decrypted.decode("ascii"))

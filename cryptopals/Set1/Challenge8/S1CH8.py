@@ -3,8 +3,7 @@ import sys
 from Common.FileReader import FileReader
 
 
-
-def countDuplicateBlocks(data: bytes)->dict:
+def countDuplicateBlocks(data: bytes) -> dict:
     length = 16
     statistics = {}
 
@@ -17,7 +16,8 @@ def countDuplicateBlocks(data: bytes)->dict:
 
     return statistics
 
-def detectEcb(data: bytearray)->bool:
+
+def detectEcb(data: bytearray) -> bool:
     stat = countDuplicateBlocks(bytes(data))
     for c in stat.keys():
         if stat[c] >= 2:
@@ -25,11 +25,10 @@ def detectEcb(data: bytearray)->bool:
 
     return False
 
+
 if __name__ == "__main__":
     f = FileReader()
     lines = f.readLines(sys.argv[0], 'input.txt')
     for hexLine in lines:
         if detectEcb(bytearray.fromhex(hexLine)):
-            print ('AES-ECB ciphertext:', hexLine)
-    
-    
+            print('AES-ECB ciphertext:', hexLine)

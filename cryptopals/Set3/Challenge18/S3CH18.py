@@ -21,7 +21,7 @@ class AesCtr:
             counter += 1
         return encrypted
 
-    def decrypt(self, data: bytearray, key:bytearray, nonce: int) -> bytearray:
+    def decrypt(self, data: bytearray, key: bytearray, nonce: int) -> bytearray:
         return self.encrypt(data, key, nonce)
 
     def __xor(self, x: bytearray, y: bytearray) -> bytearray:
@@ -29,7 +29,6 @@ class AesCtr:
         length = min(len(x), len(y))
         for i in range(length):
             c.append(x[i] ^ y[i])
-        
         
         return c
 

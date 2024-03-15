@@ -1,12 +1,10 @@
 import random
-
 from Set3.Challenge21.S3CH21 import MersenneTwister
-
 
 BITS_LENGTH = 32
 
 
-def intToBits(x)->list:
+def intToBits(x) -> list:
     bits = [0] * BITS_LENGTH
     i = 0
     while x > 0:
@@ -15,7 +13,8 @@ def intToBits(x)->list:
         i += 1
     return bits
 
-def bitsToInt(bits)->int:
+
+def bitsToInt(bits) -> int:
     x = 0
     bits.reverse()
     for b in bits:
@@ -23,9 +22,8 @@ def bitsToInt(bits)->int:
     return x
 
 
-
 # revert x = y ^ ((y << k) & m)
-def revertLeft(x, k, m)->int:
+def revertLeft(x, k, m) -> int:
     xBits = intToBits(x)
     mBits = intToBits(m)
     yBits = [0] * BITS_LENGTH
@@ -40,7 +38,7 @@ def revertLeft(x, k, m)->int:
 
 
 # revert x = y ^ ((y >> k) & m)
-def revertRight(x, k, m)->int:
+def revertRight(x, k, m) -> int:
     xBits = intToBits(x)
     mBits = intToBits(m)
     yBits = [0] * BITS_LENGTH
@@ -48,11 +46,11 @@ def revertRight(x, k, m)->int:
     for i in range(BITS_LENGTH - 1, BITS_LENGTH - 1 - k, -1):
         yBits[i] = xBits[i]
 
-    
     for i in range(BITS_LENGTH - 1 - k, -1, -1):
         yBits[i] = xBits[i] ^ yBits[i + k] & mBits[i]
 
     return bitsToInt(yBits)
+
 
 '''
 Revert
@@ -61,6 +59,8 @@ y = y ^ ((y << s) & b)
 y = y ^ ((y << t) & c)
 y = y ^ (y >> l)
 '''
+
+
 def revertState(y):
     l = 18
     t = 15
@@ -76,10 +76,7 @@ def revertState(y):
     return y
 
 
-
 if __name__ == "__main__":
-
-
     n = 624
     state = []
     for i in range(n):
@@ -101,7 +98,3 @@ if __name__ == "__main__":
     reversedOutput = reversedRng.getRandomNumber()
     print('Reversed output', reversedOutput)
     print('Output equals', initialOutput == reversedOutput)
-
-
-
-

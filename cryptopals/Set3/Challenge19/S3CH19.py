@@ -5,14 +5,14 @@ from Set3.Challenge18.S3CH18 import AesCtr
 from Set1.Challenge2.S1CH2 import xorBytes
 
 
-
 class CtrOracle:
     def __init__(self, key) -> None:
         self.key = key
         self.ctr = AesCtr()
     
-    def encrypt(self, data, nonce)->bytearray:
+    def encrypt(self, data, nonce) -> bytearray:
         return self.ctr.encrypt(data, self.key, nonce)
+
 
 if __name__ == "__main__":
     texts = [
@@ -71,32 +71,15 @@ if __name__ == "__main__":
     for t in enc:
         data += t[:keyLength]
 
-
     d = RepeatedXorDecryptor()
-    
     key1 = d.findKey(data, keyLength)
     
     print('Key', key1.hex())
     for t in enc:
         print(xorBytes(t[:keyLength], key1))
 
-    
-
     print("Manual decrypt:")
     key = bytearray.fromhex('76d1cb4bafa246e2e3af035d6c13c372d2ec6cdc986d12decfda1f93afee73182da08ecb117b')
 
-
     for t in enc:
         print(xorBytes(t, key[:len(t)]).decode('ascii'))
- 
-
-
-
-    
-
-    
-
-    
-    
-
-

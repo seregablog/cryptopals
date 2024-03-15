@@ -25,17 +25,16 @@ class CbcPaddingOracle:
             'MDAwMDA5aXRoIG15IHJhZy10b3AgZG93biBzbyBteSBoYWlyIGNhbiBibG9',
         ]
     
-    def encrypt(self)->bytes:
+    def encrypt(self) -> bytes:
         text = bytearray(self.texts[Random().getInt(0, len(self.texts) - 1)], 'ascii')
         return self.aes.encrypt(self.padding.pad(text, BLOCK_SIZE), self.key, self.iv)
     
-    def decrypt(self, data)->bytes:
+    def decrypt(self, data) -> bytes:
         dec = self.aes.decrypt(data, self.key, self.iv)
         return self.padding.unpad(dec)
 
 
-
-def decryptByte(intermediate, index, oracle, block)->bytearray:
+def decryptByte(intermediate, index, oracle, block) -> bytearray:
     padByte = BLOCK_SIZE - index
     for c in range(256):
         tryBlock = bytearray('A' * BLOCK_SIZE, 'ascii')
@@ -63,8 +62,6 @@ def decryptBlock(oracle, block, prevBlock):
     return decrypted
 
 
-
-
 if __name__ == "__main__":
     key = Random().getBytes(16)
     iv = Random().getBytes(16)
@@ -73,8 +70,6 @@ if __name__ == "__main__":
     prevBlock = iv
     message = bytearray()
     for i in range(0, len(enc), BLOCK_SIZE):
-        message += decryptBlock(oracle, enc[i:i + BLOCK_SIZE],prevBlock)
+        message += decryptBlock(oracle, enc[i:i + BLOCK_SIZE], prevBlock)
         prevBlock = enc[i: i + BLOCK_SIZE]
     print('Message:', message)
-
-

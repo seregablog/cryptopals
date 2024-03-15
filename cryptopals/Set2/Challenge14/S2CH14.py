@@ -13,13 +13,14 @@ class EcbPrefixOracle():
         self.ecb = AesEcb()
         self.padding = Pkcs7()
         self.secret = base64.b64decode('Um9sbGluJyBpbiBteSA1LjAKV2l0aCBteSByYWctdG9wIGRvd24gc28gbXkgaGFpciBjYW4gYmxvdwpUaGUgZ2lybGllcyBvbiBzdGFuZGJ5IHdhdmluZyBqdXN0IHRvIHNheSBoaQpEaWQgeW91IHN0b3A/IE5vLCBJIGp1c3QgZHJvdmUgYnkK')
+    
     def encrypt(self, data: bytearray):
         toEncrypt = self.padding.pad(self.prefix + data + self.secret, 16)
         return self.ecb.encrypt(toEncrypt, self.key)
 
 
 # find two consecutive duplicate blocks and detect prefix length by it
-def detectPrefixLength(oracle: EcbPrefixOracle)->int:
+def detectPrefixLength(oracle: EcbPrefixOracle) -> int:
     blockSize = 16
     for i in range(1, 256):
         text = bytearray('A' * i, 'ascii')
@@ -29,17 +30,16 @@ def detectPrefixLength(oracle: EcbPrefixOracle)->int:
             if enc[j: j + blockSize] == enc[j - blockSize: j]:
                 return j - blockSize - (i - 32)
 
+
 if __name__ == "__main__":
     blockSize = 16
     key = Random().getBytes(16)
-    oraclePrefix = Random().getBytes(Random().getInt(1, 100)) 
+    oraclePrefix = Random().getBytes(Random().getInt(1, 100))
     oracle = EcbPrefixOracle(key, oraclePrefix)
     oraclePrefixLength = detectPrefixLength(oracle)
 
-
     prefixLengthToFullBlock = blockSize - (oraclePrefixLength % blockSize)
     prefixBlockSize = oraclePrefixLength + prefixLengthToFullBlock
-
 
     size = 144
     alphabet = string.printable
@@ -50,10 +50,9 @@ if __name__ == "__main__":
         for c in alphabet:
             tryPrefix = prefix.copy() + answer
             tryPrefix.append(ord(c))
-            enc = oracle.encrypt(tryPrefix)          
+            enc = oracle.encrypt(tryPrefix)
             if correct[prefixBlockSize: prefixBlockSize + size] == enc[prefixBlockSize: prefixBlockSize + size]:
                 answer.append(ord(c))
                 break
     
     print('Decrypted:', answer.decode('ascii'))
-
