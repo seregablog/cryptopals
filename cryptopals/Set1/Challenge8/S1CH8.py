@@ -1,5 +1,4 @@
 import sys
-
 from Common.FileReader import FileReader
 
 

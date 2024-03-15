@@ -1,6 +1,5 @@
 import base64
 import string
-
 from Set1.Challenge7.S1CH7 import AesEcb
 from Set2.Challenge9.S2CH9 import Pkcs7
 from Common.Random import Random
@@ -55,4 +54,5 @@ if __name__ == "__main__":
                 answer.append(ord(c))
                 break
     
-    print('Decrypted:', answer.decode('ascii'))
+    print("Decrypted:\n")
+    print(answer.decode('ascii'))

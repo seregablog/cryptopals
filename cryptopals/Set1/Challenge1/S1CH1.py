@@ -1,4 +1,3 @@
-
 class Base64:
     BASE_64_SYMBOLS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
     PAD = '='

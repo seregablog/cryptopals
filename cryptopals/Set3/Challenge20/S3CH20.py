@@ -1,5 +1,4 @@
 import sys
-
 from Set1.Challenge6.S1CH6 import RepeatedXorDecryptor
 from Set1.Challenge2.S1CH2 import xorBytes
 from Common.FileReader import FileReader

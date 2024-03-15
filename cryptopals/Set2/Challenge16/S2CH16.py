@@ -26,8 +26,6 @@ class CbcBitFlipOracle:
 if __name__ == "__main__":
     oracle = CbcBitFlipOracle(Random().getBytes(16), Random().getBytes(16))
     text = 'XadminYtrueX' + 'A' * 4
-    print(ord('X') ^ ord(';'))  # 99
-    print(ord('Y') ^ ord('='))  # 100
     enc = oracle.encrypt(text)
     
     enc[16] ^= 99

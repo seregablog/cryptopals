@@ -1,12 +1,12 @@
 import time
-import random
 from Set3.Challenge21.S3CH21 import MersenneTwister
+from Common.Random import Random
 
 
 class MtTimeOracle:
     def __init__(self) -> None:
         self.rng = MersenneTwister()
-        seed = int(time.time()) + random.randint(40, 1000)
+        seed = int(time.time()) + Random().getInt(40, 1000)
         self.rng.seed(seed)
 
     def getRandom(self) -> int:

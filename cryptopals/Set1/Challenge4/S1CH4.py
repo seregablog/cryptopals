@@ -1,5 +1,4 @@
 import sys
-
 from Set1.Challenge3.S1CH3 import OneByteXorDecryptor
 from Common.FileReader import FileReader
 

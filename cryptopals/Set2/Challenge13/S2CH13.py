@@ -1,6 +1,4 @@
 import urllib.parse
-
-
 from Set1.Challenge7.S1CH7 import AesEcb
 from Set2.Challenge9.S2CH9 import Pkcs7
 from Common.Random import Random

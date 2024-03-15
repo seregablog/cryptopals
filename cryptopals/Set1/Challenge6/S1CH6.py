@@ -1,6 +1,4 @@
-
 import sys
-
 from Set1.Challenge3.S1CH3 import OneByteXorDecryptor
 from Set1.Challenge5.S1CH5 import xorEncrypt
 from Common.FileReader import FileReader

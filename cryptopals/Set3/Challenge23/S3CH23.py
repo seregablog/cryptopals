@@ -1,5 +1,5 @@
-import random
 from Set3.Challenge21.S3CH21 import MersenneTwister
+from Common.Random import Random
 
 BITS_LENGTH = 32
 
@@ -80,7 +80,7 @@ if __name__ == "__main__":
     n = 624
     state = []
     for i in range(n):
-        state.append(random.randint(0, 1000))
+        state.append(Random().getInt(0, 1000))
     rng = MersenneTwister()
     rng.seedByState(state)
     initialOutput = rng.getRandomNumber()

@@ -1,4 +1,3 @@
-
 class Pkcs7():
     def pad(self, data: bytearray, bytesLength: int) -> bytearray:
         bytesToAdd = bytesLength - (len(data) % bytesLength)

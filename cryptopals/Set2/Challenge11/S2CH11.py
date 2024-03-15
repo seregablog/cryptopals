@@ -1,5 +1,3 @@
-
-
 from Set1.Challenge7.S1CH7 import AesEcb
 from Set2.Challenge10.S2CH10 import AesCbc
 from Set2.Challenge9.S2CH9 import Pkcs7
@@ -53,4 +51,4 @@ if __name__ == "__main__":
     if wrong > 0:
         print('wrong answers: ', wrong)
     else:
-        print('correct')
+        print('all detection correct')

@@ -1,3 +1,4 @@
+import base64
 from Set2.Challenge10.S2CH10 import AesCbc
 from Set2.Challenge9.S2CH9 import Pkcs7
 from Common.Random import Random
@@ -73,3 +74,4 @@ if __name__ == "__main__":
         message += decryptBlock(oracle, enc[i:i + BLOCK_SIZE], prevBlock)
         prevBlock = enc[i: i + BLOCK_SIZE]
     print('Message:', message)
+    print('Decoded:', base64.b64decode(Pkcs7().unpad(message)))
