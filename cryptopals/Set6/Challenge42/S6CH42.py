@@ -50,20 +50,18 @@ if __name__ == "__main__":
     message = b'hi mom'
     
     hash = sha.hash(message)
-    print('Hash=', hash)
     
     packetLen = bits // 8
     packet = b'\x00\x01' + b'\xff' * (packetLen - len(hash) - 3) + b'\x00' + hash
     
     signature = rsa.decrypt(converter.bytesToInt(packet))
-    print('Signature', signature)
 
     oracle = BleichenbacherOracle(rsa)
-    print('Verify: ', oracle.verify(signature, message))
+    print('Signature verify: ', oracle.verify(signature, message))
 
     forgePacket = b'\x00\x01' + b'\x00' + hash + b'\x00' * (packetLen - len(hash) - 3)
     num = converter.bytesToInt(forgePacket)
     forgeSignature = cubeRoot(num)
     print('Forged Signature', forgeSignature)
     print('Verify forge:', oracle.verify(forgeSignature, message))
-    print('Signatuer == Forge:', signature == forgeSignature)
+    print('Signature == Forge:', signature == forgeSignature)

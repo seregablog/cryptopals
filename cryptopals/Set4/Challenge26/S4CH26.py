@@ -24,8 +24,6 @@ class CtrBitFlipOracle:
 if __name__ == "__main__":
     oracle = CtrBitFlipOracle()
     text = 'XadminYtrueX'
-    print(ord('X') ^ ord(';'))  # 99
-    print(ord('Y') ^ ord('='))  # 100
     enc = oracle.encrypt(text)
     
     enc[32] ^= 99

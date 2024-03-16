@@ -1,6 +1,4 @@
 import sys
-
-
 from Set3.Challenge18.S3CH18 import AesCtr
 from Set1.Challenge2.S1CH2 import xorBytes
 from Common.FileReader import FileReader

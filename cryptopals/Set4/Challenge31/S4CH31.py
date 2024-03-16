@@ -37,7 +37,7 @@ class HmacTimeOracle:
         for i in range(20):
             if x[i] != y[i]:
                 return False
-            time.sleep(0.00005)
+            time.sleep(0.001)
         return True
 
 

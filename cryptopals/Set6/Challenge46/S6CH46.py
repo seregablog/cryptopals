@@ -40,4 +40,4 @@ if __name__ == "__main__":
     findedText = converter.intToBytes(findedNumber).strip(b'\x00')
     print('Find number:', findedNumber)
     print('As text:', findedText)
-    print('Text equals:: ', text == findedText)
+    print('Text equals:', text == findedText)
