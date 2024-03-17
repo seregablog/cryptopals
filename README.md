@@ -5,5 +5,5 @@
 
 
 ## Команды
-`make lint` -- проверка code-style  
-`make runAll` -- запуск всех решений
+`make lint` - проверка code-style  
+`make runAll` - запуск всех решений
