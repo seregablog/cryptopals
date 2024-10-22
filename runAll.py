@@ -1,7 +1,7 @@
 from pathlib import Path
 import os
 
-result = list(Path("cryptopals/Set6").rglob("*.py"))
+result = list(Path("cryptopals").rglob("*.py"))
 
 for file in result:
     fileName = str(file)

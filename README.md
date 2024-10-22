@@ -1,9 +1,11 @@
 # Cryptopals
 
-Решения заданий по криптографии https://cryptopals.com/ на python.      
-Подробный разбор задач: https://seregablog.info/posts/crypto/cryptopals/
+Solutions to the https://cryptopals.com/ written in python.      
+Detailed analysis of the tasks: https://seregablog.info/posts/crypto/cryptopals/
 
+# Oracles
+Many solutions contain "oracles" classes. These oracles represent the conditions of the tasks. You can use oracles to test your solutions.
 
-## Команды
-`make lint` - проверка code-style  
-`make runAll` - запуск всех решений
+# Make commands
+`make lint` -  code-style check  
+`make runAll` - run all solutions
